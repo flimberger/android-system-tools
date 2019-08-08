@@ -3,6 +3,12 @@
     "displayName": "Android System Tools",
     "description": "Syntax support for file formats used in Android system development.",
     "version": "0.0.1",
+    "publisher": "flimberger",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/flimberger/android-system-tools.git"
+    },
+    "license": "BSD-2-Clause",
     "engines": {
         "vscode": "^1.36.0"
     },
