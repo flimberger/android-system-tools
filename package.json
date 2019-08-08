@@ -2,7 +2,7 @@
     "name": "android-system-tools",
     "displayName": "Android System Tools",
     "description": "Syntax support for file formats used in Android system development.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "flimberger",
     "repository": {
         "type": "git",

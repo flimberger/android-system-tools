@@ -6,13 +6,18 @@
 			"include": "#comments"
 		},
 		{
-			"include": "#modules"
+			"comment": "This must be listed before the module",
+			"include": "#variables"
 		},
 		{
-			"include": "#variables"
+			"include": "#module"
 		}
 	],
 	"repository": {
+		"bool": {
+			"match": "\\b(true|false)\\b",
+			"name": "constant.language.bp"
+		},
 		"comments": {
 			"patterns": [
 				{
@@ -32,20 +37,20 @@
 					"begin": "\\[",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.list.begin.bp"
+							"name": "punctuation.definition.array.begin.bp"
 						}
 					},
 					"end": "\\]",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.definition.list.end.bp"
+							"name": "punctuation.definition.array.end.bp"
 						}
 					},
-					"name": "meta.structure.list.bp",
+					"name": "meta.structure.array.bp",
 					"patterns": [
 						{
 							"match": ",",
-							"name": "punctuation.separator.lists.json"
+							"name": "punctuation.separator.array.json"
 						},
 						{
 							"include": "#strings"
@@ -57,19 +62,16 @@
 				}
 			]
 		},
-		"modules": {
+		"map": {
 			"patterns": [
 				{
-					"begin": "(\\w+)\\s*({)",
+					"begin": "\\{",
 					"beginCaptures": {
-						"1": {
-							"name": "support.variable.bp"
-						},
-						"2": {
+						"0": {
 							"name": "punctuation.definition.dictionary.begin.bp"
 						}
 					},
-					"end": "}",
+					"end": "\\}",
 					"endCaptures": {
 						"0": {
 							"name": "punctuation.definition.dictionary.end.bp"
@@ -109,6 +111,21 @@
 				}
 			]
 		},
+		"module": {
+			"begin": "\\b(\\w+)\\b",
+			"beginCaptures": {
+				"1": {
+					"name": "support.variable.bp"
+				}
+			},
+			"end": "\\n",
+			"name": "meta.structure.module.bp",
+			"patterns": [
+				{
+					"include": "#map"
+				}
+			]
+		},
 		"strings": {
 			"name": "string.quoted.double.bp",
 			"begin": "\"",
@@ -127,10 +144,16 @@
 		"values": {
 			"patterns": [
 				{
-					"include": "#strings"
+					"include": "#bool"
 				},
 				{
 					"include": "#lists"
+				},
+				{
+					"include": "#map"
+				},
+				{
+					"include": "#strings"
 				},
 				{
 					"include": "#comments"
