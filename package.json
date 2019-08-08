@@ -1,0 +1,25 @@
+{
+    "name": "android-system-tools",
+    "displayName": "Android System Tools",
+    "description": "Syntax support for file formats used in Android system development.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.36.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "blueprint",
+            "aliases": ["Android Blueprint", "blueprint"],
+            "extensions": [".bp"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "blueprint",
+            "scopeName": "source.bp",
+            "path": "./syntaxes/blueprint.tmLanguage.json"
+        }]
+    }
+}

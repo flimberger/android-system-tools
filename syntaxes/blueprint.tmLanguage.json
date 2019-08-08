@@ -1,0 +1,164 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Android Blueprint",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#modules"
+		},
+		{
+			"include": "#variables"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"match": "(//).*$\\n?",
+					"name": "comment.line.double-slash.bp"
+				},
+				{
+					"begin": "/\\*",
+					"end": "\\*/",
+					"name": "comment.block.bp"
+				}
+			]
+		},
+		"lists": {
+			"patterns": [
+				{
+					"begin": "\\[",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.list.begin.bp"
+						}
+					},
+					"end": "\\]",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.list.end.bp"
+						}
+					},
+					"name": "meta.structure.list.bp",
+					"patterns": [
+						{
+							"match": ",",
+							"name": "punctuation.separator.lists.json"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#comments"
+						}
+					]
+				}
+			]
+		},
+		"modules": {
+			"patterns": [
+				{
+					"begin": "(\\w+)\\s*({)",
+					"beginCaptures": {
+						"1": {
+							"name": "support.variable.bp"
+						},
+						"2": {
+							"name": "punctuation.definition.dictionary.begin.bp"
+						}
+					},
+					"end": "}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.dictionary.end.bp"
+						}
+					},
+					"name": "meta.structure.dictionary.bp",
+					"patterns": [
+						{
+							"include": "#comments"
+						},
+						{
+							"match": "\\w+",
+							"comment": "the value key",
+							"name": "support.variable"
+						},
+						{
+							"begin": ":",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.separator.dictionary.key-value.bp"
+								}
+							},
+							"end": "(,)|(?=\\})",
+							"endCaptures": {
+								"1": {
+									"name": "punctuation.separator.dictionary.pair.bp"
+								}
+							},
+							"name": "meta.structure.dictionary.value.bp",
+							"patterns": [
+								{
+									"include": "#values"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.bp",
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.bp"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.bp"
+				}
+			}
+		},
+		"values": {
+			"patterns": [
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#lists"
+				},
+				{
+					"include": "#comments"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"begin": "(\\w+)\\s*(=)",
+					"beginCaptures": {
+						"1": {
+							"name": "variable.other.bp"
+						},
+						"2": {
+							"name": "punctuation.definition.assignment.bp"
+						}
+					},
+					"end": "\\n",
+					"name": "meta.assignment",
+					"patterns": [
+						{
+							"include": "#values"
+						}
+					]
+				}
+			]
+		}
+	},
+	"scopeName": "source.bp"
+}
