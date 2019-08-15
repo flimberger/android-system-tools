@@ -22,29 +22,41 @@ NAME=	android-system-tools
 VERSION=	0.0.2
 PUBLISHER=	flimberger
 
-TARGET=	${NAME}-${VERSION}.vsix
+SRCS=	src/extension.ts \
+	src/formatter.ts
 
+TARGET=	${NAME}-${VERSION}.vsix
+OUTDIR=	out
+
+NPM?=	npm
 VSCODE?=	code
 VSCE?=	vsce
 
 all: ${TARGET}
 
-${TARGET}: syntaxes/blueprint.tmLanguage.json package.json
-# This is a bit strange: using `vsce package` without the `--yarn`
-# option wants to include the files from
-# `node_modules/yo/generator-code` instead of my extension.
-	${VSCE} package --yarn
+compile: node_modules
+	${NPM} run compile
+
+node_modules: package.json
+	${NPM} install .
+
+${TARGET}: node_modules ${SRCS} package.json language-configuration.json syntaxes/blueprint.tmLanguage.json
+	${VSCE} package
 
 install: ${TARGET}
 	${VSCODE} --install-extension ${TARGET}
 
 publish:
-	${VSCE} publish --yarn
+	${VSCE} publish
 
 unpublish:
 	${VSCE} unpublish ${PUBLISHER}.${NAME}
 
 clean:
 	rm -f ${TARGET}
+	rm -rf ${OUTDIR}
 
-.PHONY: all install publish unpublish clean
+nuke: clean
+	rm -rf node_modules
+
+.PHONY: all compile install publish unpublish clean nuke

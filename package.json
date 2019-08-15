@@ -13,9 +13,26 @@
         "vscode": "^1.36.0"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Formatters"
     ],
+    "activationEvents": ["onLanguage:blueprint"],
+    "main": "./out/extension.js",
     "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Android System Tools configuration",
+            "properties": {
+                "android_systools.bpfmt.executable": {
+                    "type": "string",
+                    "description": "Path to the bpfmt executable."
+                },
+                "android_systools.bpfmt.flags": {
+                    "type": "list",
+                    "description": "Flags for the bpfmt tool."
+                }
+            }
+        },
         "languages": [{
             "id": "blueprint",
             "aliases": ["Android Blueprint", "blueprint"],
@@ -27,5 +44,15 @@
             "scopeName": "source.bp",
             "path": "./syntaxes/blueprint.tmLanguage.json"
         }]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p .",
+        "watch": "tsc -watch -p ."
+    },
+    "devDependencies": {
+        "@types/node": "^8.10.25",
+        "@types/vscode": "^1.36.0",
+        "typescript": "^3.5.1"
     }
 }
