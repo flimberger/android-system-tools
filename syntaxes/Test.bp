@@ -1,0 +1,24 @@
+// comment
+
+my_var = "foo",
+multiline_var =
+    "baz " +
+    my_var,
+append_var = "foo",
+append_var += " bar",
+target {
+	some_prop: "value",
+    list: [
+        "foo",
+        "bar",
+        "baz",
+    ],
+    other_prop: 42,
+    /*
+     * more comment
+     */
+    nested: {
+        a_prop: "21",
+        use_var: my_var,
+    },
+}
