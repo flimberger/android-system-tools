@@ -163,7 +163,7 @@
 		"variables": {
 			"patterns": [
 				{
-					"begin": "(\\w+)\\s*(=)",
+					"begin": "(\\w+)\\s*(\\+?=)",
 					"beginCaptures": {
 						"1": {
 							"name": "variable.other.bp"
@@ -172,7 +172,7 @@
 							"name": "punctuation.definition.assignment.bp"
 						}
 					},
-					"end": "\\n",
+					"end": ",\\n",
 					"name": "meta.assignment",
 					"patterns": [
 						{
