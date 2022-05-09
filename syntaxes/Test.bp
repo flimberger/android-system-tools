@@ -1,11 +1,30 @@
 // comment
 
-my_var = "foo",
+my_var = "baz"
+
 multiline_var =
-    "baz " +
-    my_var,
-append_var = "foo",
-append_var += " bar",
+    "foo" +
+    "bar " +
+    my_var
+
+my_other_var = my_var
+
+list_var = [
+    "foo",
+    "bar",
+    "baz",
+]
+
+map_var = {
+    a: "foo",
+    b: "bar",
+    v: "baz",
+}
+
+append_var = "foo"
+append_var += " bar"
+append_var += " baz"
+
 target {
 	some_prop: "value",
     list: [

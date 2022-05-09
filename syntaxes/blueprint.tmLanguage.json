@@ -160,10 +160,33 @@
 				}
 			]
 		},
-		"variables": {
+		"single-line-variables": {
 			"patterns": [
 				{
-					"begin": "(\\w+)\\s*(\\+?=)",
+					"match": "(\\w+)\\s*(\\+?=)\\s*(\\S.*)$",
+					"captures": {
+						"1": {
+							"name": "variable.other.bp"
+						},
+						"2": {
+							"name": "punctuation.definition.assignment.bp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#values"
+								}
+							]
+						}
+					},
+					"name": "meta.assignment"
+				}
+			]
+		},
+		"multi-line-variables": {
+			"patterns": [
+				{
+					"begin": "(\\w+)\\s*(\\+?=)\\s*$",
 					"beginCaptures": {
 						"1": {
 							"name": "variable.other.bp"
@@ -172,13 +195,35 @@
 							"name": "punctuation.definition.assignment.bp"
 						}
 					},
-					"end": ",\\n",
+					"end": "[^+=]\\s*$",
 					"name": "meta.assignment",
 					"patterns": [
+						{
+							"match": "(.*\\S)\\s*+$",
+							"captures": {
+								"1": {
+									"patterns": [
+										{
+											"include": "#values"
+										}
+									]
+								}
+							}
+						},
 						{
 							"include": "#values"
 						}
 					]
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"include": "#single-line-variables"
+				},
+				{
+					"include": "#multi-line-variables"
 				}
 			]
 		}
